@@ -1,0 +1,1 @@
+Software design project. It is a simple rogue like indie game using Java Swing.
