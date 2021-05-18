@@ -1,4 +1,4 @@
-package Entiry;
+package Model;
 
 public class Enemy extends Entity {
     public Enemy(String name, int health, int damage) {

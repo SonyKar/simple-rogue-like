@@ -43,5 +43,6 @@ public class GameWindow extends JFrame {
         this.content = content;
         getContentPane().add(content, gridBagConstraints);
         revalidate();
+        repaint();
     }
 }

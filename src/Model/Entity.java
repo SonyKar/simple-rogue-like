@@ -1,4 +1,4 @@
-package Entiry;
+package Model;
 
 public abstract class Entity {
     private String name;

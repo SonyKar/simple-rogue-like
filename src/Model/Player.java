@@ -1,6 +1,7 @@
-package Entiry;
+package Model;
 
 public class Player extends Entity {
+    int level;
     int luck;
     int coins;
 
@@ -8,6 +9,15 @@ public class Player extends Entity {
         super(name, health, damage);
         this.luck = luck;
         this.coins = coins;
+        this.level = luck + damage / 5 + health / 10 - 5 - 1;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public int getLuck() {

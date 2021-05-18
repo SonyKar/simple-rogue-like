@@ -83,7 +83,7 @@ public class Door extends Content {
 
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Main.gameWindow.changeContent(new Fight(), "Fight");
             }
         });
