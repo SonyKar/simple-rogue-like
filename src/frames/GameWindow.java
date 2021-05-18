@@ -28,7 +28,7 @@ public class GameWindow extends JFrame {
         getContentPane().add(content, gridBagConstraints);
     }
 
-    public void changeContent(JPanel content) {
+    public void changeContent(JPanel content, String title) {
         getContentPane().removeAll();
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -39,6 +39,7 @@ public class GameWindow extends JFrame {
         gridBagConstraints.gridwidth = 1;
         gridBagConstraints.gridheight = 1;
 
+        setTitle(title);
         this.content = content;
         getContentPane().add(content, gridBagConstraints);
         revalidate();

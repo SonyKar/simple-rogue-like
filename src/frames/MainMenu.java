@@ -4,18 +4,10 @@ import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class MainMenu extends JPanel {
+public class MainMenu extends Content {
     public MainMenu() {
-        // JPanel Properties
-        setLayout(new GridBagLayout());
-
-        // GridBagLayout properties
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.weightx = 1;
-        gridBagConstraints.weighty = 1;
+        super();
 
         // Elements
         JPanel mainMenu = new JPanel();
@@ -36,9 +28,9 @@ public class MainMenu extends JPanel {
 
         mainMenu.add(gameName, gridBagConstraints);
 
-        JButton startGame=new JButton("Start Game");
+        JButton startGame = new JButton("Start Game");
         startGame.setFont(new Font(GameWindow.fontName, Font.PLAIN, 18));
-        startGame.addActionListener(e -> Main.gameWindow.changeContent(new RoomSelection()));
+        startGame.addActionListener(e -> Main.gameWindow.changeContent(new RoomSelection(), "Room Selection"));
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;

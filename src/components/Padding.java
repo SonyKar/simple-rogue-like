@@ -1,18 +1,14 @@
 package components;
 
-import javax.swing.*;
+import frames.Content;
+
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
-public class Padding extends JPanel {
+public class Padding extends Content {
     public Padding(int top, int left, int bottom, int right) {
-        // JPanel Properties
-        setLayout(new GridBagLayout());
-        setBorder(new EmptyBorder(top, left, bottom, right));
+        super();
 
-        // GridBagLayout properties
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.weightx = 1;
-        gridBagConstraints.weighty = 1;
+        // JPanel Properties
+        setBorder(new EmptyBorder(top, left, bottom, right));
     }
 }
