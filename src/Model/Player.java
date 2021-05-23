@@ -1,7 +1,8 @@
 package Model;
 
 public class Player extends Entity {
-    int level;
+    int numberOfVisitedRooms;
+    int characteristicLevel;
     int luck;
     int coins;
 
@@ -9,15 +10,23 @@ public class Player extends Entity {
         super(name, health, damage);
         this.luck = luck;
         this.coins = coins;
-        this.level = luck + damage / 5 + health / 10 - 5 - 1;
+        this.characteristicLevel = luck + damage / 5 + health / 10 - 5 - 1;
     }
 
-    public int getLevel() {
-        return level;
+    public int getCharacteristicLevel() {
+        return characteristicLevel;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setCharacteristicLevel(int characteristicLevel) {
+        this.characteristicLevel = characteristicLevel;
+    }
+
+    public int getNumberOfVisitedRooms() {
+        return numberOfVisitedRooms;
+    }
+
+    public void setNumberOfVisitedRooms(int numberOfVisitedRooms) {
+        this.numberOfVisitedRooms = numberOfVisitedRooms;
     }
 
     public int getLuck() {

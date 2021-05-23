@@ -1,6 +1,6 @@
 package frames;
 
-import components.Door;
+import Factory.RoomFactory;
 import components.Padding;
 
 public class RoomSelection extends Content {
@@ -8,6 +8,8 @@ public class RoomSelection extends Content {
 
     public RoomSelection() {
         super();
+
+        RoomFactory roomFactory = new RoomFactory();
 
         // Elements
 
@@ -17,11 +19,9 @@ public class RoomSelection extends Content {
         Padding door2 = new Padding(0, distanceBetweenRooms, 0, distanceBetweenRooms);
         Padding door3 = new Padding(0, distanceBetweenRooms, 0, distanceBetweenRooms);
 
-        door1.add(new Door(Door.RoomType.FIGHT), gridBagConstraints);
-        door2.add(new Door(Door.RoomType.FIGHT), gridBagConstraints);
-        door3.add(new Door(Door.RoomType.FIGHT), gridBagConstraints);
-
-
+        door1.add(roomFactory.generateDoor(RoomFactory.RoomType.FIGHT), gridBagConstraints);
+        door2.add(roomFactory.generateDoor(RoomFactory.RoomType.FIGHT), gridBagConstraints);
+        door3.add(roomFactory.generateDoor(RoomFactory.RoomType.REST), gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

@@ -10,37 +10,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Door extends Content {
-    public enum RoomType {
-        FIGHT,
-        VOID,
-        TREASURE,
-        REST
-    }
 
-    public Door(RoomType roomType) {
+
+    public Door(String title, Image image, JPanel content) {
         super();
-
-        String title = "";
-        Image image = null;
-
-        switch (roomType) {
-            case FIGHT -> {
-                title = "Fight";
-                image = new ImageIcon("src/img/fight.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-            }
-            case VOID -> {
-                title = "Void";
-                image = new ImageIcon("src/img/fight.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-            }
-            case TREASURE -> {
-                title = "Treasure";
-                image = new ImageIcon("src/img/fight.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-            }
-            case REST -> {
-                title = "Rest";
-                image = new ImageIcon("src/img/fight.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-            }
-        }
 
         // JPanel Properties
         setSize(150, 200);
@@ -84,7 +57,7 @@ public class Door extends Content {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Main.gameWindow.changeContent(new Fight(), "Fight");
+                Main.gameWindow.changeContent(content, title);
             }
         });
     }

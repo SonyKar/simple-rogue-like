@@ -5,10 +5,11 @@ import Model.FightModel;
 import controllers.EnemyController;
 import controllers.PlayerController;
 import frames.Fight;
-import main.Main;
 
 import java.util.HashMap;
 import java.util.Random;
+
+import static main.Main.player;
 
 /*
  * Fire -> Wood
@@ -37,6 +38,7 @@ public class FightEngine {
     PlayerController playerController;
     EnemyController enemyController;
 
+    // strategy
     private static final HashMap<Element, Element[]> rules = new HashMap<>() {{
         put(Element.FIRE, new Element[]{Element.WOOD, Element.METAL});
         put(Element.EARTH, new Element[]{Element.FIRE, Element.WATER});
@@ -48,7 +50,7 @@ public class FightEngine {
     public FightEngine(Fight fightGUI, FightModel fightModel) {
         this.fightGUI = fightGUI;
         this.fightModel = fightModel;
-        playerController = new PlayerController(Main.player);
+        playerController = new PlayerController(player);
         enemyController = new EnemyController(fightModel.getEnemy());
     }
 
@@ -63,14 +65,14 @@ public class FightEngine {
         else {
             Element[] weaknesses = rules.get(element);
             if (opponentsElement == weaknesses[0] || opponentsElement == weaknesses[1]) {
-                enemyController.takeDamage(Main.player.getDamage());
+                enemyController.takeDamage(player.getDamage());
                 fightGUI.actualiseEnemy(enemy.getCurrentHealth(), enemy.getHealth());
-                result = "Win";
+                result = "enemy takes damage " + player.getDamage() + "\nNow it has " + enemy.getCurrentHealth();
             }
             else {
                 playerController.takeDamage(enemy.getDamage());
-                fightGUI.actualisePlayer(Main.player.getCurrentHealth(), Main.player.getHealth());
-                result = "Lose";
+                fightGUI.actualisePlayer(player.getCurrentHealth(), player.getHealth());
+                result = "player takes damage " + enemy.getDamage() + "\nNow he has " + player.getCurrentHealth();
             }
         }
 
@@ -81,13 +83,11 @@ public class FightEngine {
             fightGUI.endFight();
         }
 
-        if (Main.player.getCurrentHealth() <= 0) {
+        if (player.getCurrentHealth() <= 0) {
             System.out.println("You Died!");
             System.exit(1);
         }
 
-        System.out.println("Player: " + element);
-        System.out.println("Enemy: " + opponentsElement);
         System.out.println("Result: " + result);
     }
 
