@@ -7,6 +7,7 @@ import engines.LevelUpEngine;
 import javax.swing.*;
 import java.awt.*;
 
+import static main.Main.gameWindow;
 import static main.Main.player;
 
 public class Rest extends JPanel {
@@ -74,5 +75,9 @@ public class Rest extends JPanel {
 
     public Characteristic getLuck() {
         return luck;
+    }
+
+    public void leaveRoom() {
+        gameWindow.changeContent(new RoomSelection(), "Select a Room");
     }
 }

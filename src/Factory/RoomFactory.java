@@ -3,11 +3,12 @@ package Factory;
 import components.Door;
 import frames.Fight;
 import frames.Rest;
+import frames.Treasure;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RoomFactory {
+public class RoomFactory extends Factory {
     public enum RoomType {
         FIGHT,
         VOID,
@@ -32,7 +33,8 @@ public class RoomFactory {
             }
             case TREASURE -> {
                 title = "Treasure";
-                image = new ImageIcon("src/img/fight.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+                image = new ImageIcon("src/img/treasure.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+                content = new Treasure(generateCoins());
             }
             case REST -> {
                 title = "Rest";

@@ -7,11 +7,14 @@ import engines.FightEngine;
 import main.Main;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Fight extends Content {
     private final FightEngine fightEngine;
     private final StatusBar player;
     private final StatusBar enemy;
+    private final JLabel enemySelection;
+    private final JLabel playerSelection;
 
     public Fight() {
         super();
@@ -26,6 +29,24 @@ public class Fight extends Content {
         gridBagConstraints.gridwidth = 1;
 
         add(player, gridBagConstraints);
+
+        playerSelection = new JLabel("");
+        playerSelection.setFont(new Font(GameWindow.fontName, Font.BOLD, 40));
+        enemySelection = new JLabel("");
+        enemySelection.setHorizontalAlignment(JLabel.RIGHT);
+        enemySelection.setFont(new Font(GameWindow.fontName, Font.BOLD, 40));
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 1;
+
+        add(playerSelection, gridBagConstraints);
+
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 1;
+
+        add(enemySelection, gridBagConstraints);
 
         // Attack selection
         Padding attackSelection = new Padding(50, 50, 50, 50);
@@ -86,7 +107,7 @@ public class Fight extends Content {
         attackSelection.add(woodButton, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.weightx = 1;
 
         add(attackSelection, gridBagConstraints);
@@ -115,7 +136,17 @@ public class Fight extends Content {
         enemy.getHealth().setText(currentHealth + "\\" + health);
     }
 
-    public void endFight() {
-        Main.gameWindow.changeContent(new RoomSelection(), "Room Selection");
+    public void actualiseEnemySelection(String elementName, boolean isWin) {
+        enemySelection.setText(elementName);
+        enemySelection.setForeground(isWin ? Color.GREEN : Color.RED);
+    }
+
+    public void actualisePlayerSelection(String elementName, boolean isWin) {
+        playerSelection.setText(elementName);
+        playerSelection.setForeground(isWin ? Color.GREEN : Color.RED);
+    }
+
+    public void leaveRoom(int coins) {
+        Main.gameWindow.changeContent(new Treasure(coins), "Treasury");
     }
 }

@@ -12,4 +12,9 @@ public class PlayerController extends EntityController {
         Player player = ((Player)entity);
         player.setCoins(player.getCoins() + coins);
     }
+
+    public void incrementRooms() {
+        Player player = ((Player)entity);
+        player.setNumberOfVisitedRooms(player.getNumberOfVisitedRooms() + 1);
+    }
 }

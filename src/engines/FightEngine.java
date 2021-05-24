@@ -6,81 +6,61 @@ import controllers.EnemyController;
 import controllers.PlayerController;
 import frames.Fight;
 
-import java.util.HashMap;
-import java.util.Random;
-
 import static main.Main.player;
 
-/*
- * Fire -> Wood
- * Fire -> Metal
- * Earth -> Fire
- * Earth -> Water
- * Metal -> Earth
- * Metal -> Wood
- * Water -> Metal
- * Water -> Fire
- * Wood -> Water
- * Wood -> Earth
- */
-
-public class FightEngine {
-    public enum Element {
-        FIRE, // 0
-        WOOD, // 1
-        METAL, // 2
-        WATER, // 3
-        EARTH // 4
-    }
+public class FightEngine extends engines.Fight {
 
     Fight fightGUI;
     FightModel fightModel;
     PlayerController playerController;
     EnemyController enemyController;
-
-    // strategy
-    private static final HashMap<Element, Element[]> rules = new HashMap<>() {{
-        put(Element.FIRE, new Element[]{Element.WOOD, Element.METAL});
-        put(Element.EARTH, new Element[]{Element.FIRE, Element.WATER});
-        put(Element.METAL, new Element[]{Element.EARTH, Element.WOOD});
-        put(Element.WATER, new Element[]{Element.FIRE, Element.METAL});
-        put(Element.WOOD, new Element[]{Element.WATER, Element.EARTH});
-    }};
+    FightAI fightAI;
 
     public FightEngine(Fight fightGUI, FightModel fightModel) {
         this.fightGUI = fightGUI;
         this.fightModel = fightModel;
         playerController = new PlayerController(player);
         enemyController = new EnemyController(fightModel.getEnemy());
+        fightAI = new FightAI();
     }
 
     public void makeMove(Element element) {
         String result;
         Enemy enemy = fightModel.getEnemy();
 
-        int randomElementNumber = new Random().nextInt(5);
-        Element opponentsElement = Element.values()[randomElementNumber];
+        //int randomElementNumber = new Random().nextInt(5);
+        Element opponentsElement = fightAI.generateMove(4);
 
-        if (element == opponentsElement) result = "Draw";
+        String playerElementName = element.toString().charAt(0) + element.toString().toLowerCase().substring(1);
+        String opponentsElementName = opponentsElement.toString().charAt(0) + opponentsElement.toString().toLowerCase().substring(1);
+
+        if (element == opponentsElement) {
+            fightGUI.actualisePlayerSelection(playerElementName, true);
+            fightGUI.actualiseEnemySelection(opponentsElementName, true);
+            result = "Draw";
+        }
         else {
             Element[] weaknesses = rules.get(element);
             if (opponentsElement == weaknesses[0] || opponentsElement == weaknesses[1]) {
-                enemyController.takeDamage(player.getDamage());
-                fightGUI.actualiseEnemy(enemy.getCurrentHealth(), enemy.getHealth());
-                result = "enemy takes damage " + player.getDamage() + "\nNow it has " + enemy.getCurrentHealth();
+                //playerController.takeDamage(enemy.getDamage());
+                fightGUI.actualisePlayer(player.getCurrentHealth(), player.getHealth());
+                fightGUI.actualisePlayerSelection(playerElementName, false);
+                fightGUI.actualiseEnemySelection(opponentsElementName, true);
+                result = "player takes damage " + enemy.getDamage() + "\nNow he has " + player.getCurrentHealth();
             }
             else {
-                playerController.takeDamage(enemy.getDamage());
-                fightGUI.actualisePlayer(player.getCurrentHealth(), player.getHealth());
-                result = "player takes damage " + enemy.getDamage() + "\nNow he has " + player.getCurrentHealth();
+                //enemyController.takeDamage(player.getDamage());
+                fightGUI.actualiseEnemy(enemy.getCurrentHealth(), enemy.getHealth());
+                fightGUI.actualisePlayerSelection(playerElementName, true);
+                fightGUI.actualiseEnemySelection(opponentsElementName, false);
+                result = "enemy takes damage " + player.getDamage() + "\nNow it has " + enemy.getCurrentHealth();
             }
         }
 
         if (enemy.getCurrentHealth() <= 0) {
-            playerController.collectCoins(fightModel.getCoins());
             System.out.println("You Win!");
             System.out.println("You earned " + fightModel.getCoins() + " coins");
-            fightGUI.endFight();
+            fightGUI.leaveRoom(fightModel.getCoins());
         }
 
         if (player.getCurrentHealth() <= 0) {
@@ -88,6 +68,8 @@ public class FightEngine {
             System.exit(1);
         }
 
+        // after round
+        fightAI.addPlayerMove(element);
         System.out.println("Result: " + result);
     }
 

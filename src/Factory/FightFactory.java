@@ -6,11 +6,8 @@ import Utilities.Configuration;
 
 import static main.Main.player;
 
-import java.util.Random;
-
-public class FightFactory {
+public class FightFactory extends Factory {
     private final String[] enemyNames = new String[] {"Goblin", "Slime", "Bat", "Skeleton", "Wizard", "Ghost", "Zombie", "Rat", "Vampire", "Wolf", "Thug"};
-    private final Random random = new Random();
 
     private Enemy generateEnemy() {
         String enemyName = enemyNames[random.nextInt(enemyNames.length)];
@@ -22,7 +19,7 @@ public class FightFactory {
 
     public FightModel generateFight() {
         Enemy enemy = generateEnemy();
-        int coins = random.nextInt(Configuration.baseMaxGoldFight * Configuration.multiplier) + 1;
+        int coins = generateCoins();
 
         return new FightModel(enemy, coins);
     }

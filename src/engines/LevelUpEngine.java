@@ -2,13 +2,12 @@ package engines;
 
 import Utilities.Configuration;
 import components.Characteristic;
+import controllers.PlayerController;
 import frames.Rest;
-import frames.RoomSelection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static main.Main.gameWindow;
 import static main.Main.player;
 
 public class LevelUpEngine {
@@ -126,7 +125,8 @@ public class LevelUpEngine {
                 saveCharacteristics();
             }
             player.setCurrentHealth(player.getHealth());
-            gameWindow.changeContent(new RoomSelection(), "Room Selection");
+            new PlayerController(player).incrementRooms();
+            restGui.leaveRoom();
         }
     }
 

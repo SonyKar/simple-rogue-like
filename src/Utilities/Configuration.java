@@ -10,8 +10,8 @@ public abstract class Configuration {
     public static final int costPerLevel = 3;
 
     // Fight & Treasure
-    public static final int enemyHealthPerLevel = 5;
-    public static final int enemyDamagePerLevel = 2;
+    public static final int enemyHealthPerLevel = 1;
+    public static final int enemyDamagePerLevel = 1;
     public static final int baseMaxGoldFight = 10;
     public static final int multiplier = (player.getLuck() / 10 + 1);
 }
