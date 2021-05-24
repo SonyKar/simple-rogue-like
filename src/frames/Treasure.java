@@ -1,12 +1,11 @@
 package frames;
 
-import controllers.PlayerController;
+import engines.TreasureRoom;
 
 import javax.swing.*;
 import java.awt.*;
 
 import static main.Main.gameWindow;
-import static main.Main.player;
 
 public class Treasure extends JPanel {
 
@@ -20,9 +19,7 @@ public class Treasure extends JPanel {
 
         JButton nextButton = new JButton("Go forward");
         nextButton.addActionListener(e -> {
-            PlayerController playerController = new PlayerController(player);
-            playerController.collectCoins(coins);
-            playerController.incrementRooms();
+            new TreasureRoom(coins).collectCoins();
             gameWindow.changeContent(new RoomSelection(), "Select a Room");
         });
 
