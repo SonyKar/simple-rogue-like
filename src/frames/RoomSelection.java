@@ -1,27 +1,26 @@
 package frames;
 
-import Factory.RoomFactory;
+import Factory.*;
 import components.Padding;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Random;
 
 import static main.Main.gameWindow;
 import static main.Main.player;
 
 public class RoomSelection extends Content {
-    int distanceBetweenRooms = 5;
+    private final RoomFactory[] rooms = new RoomFactory[]{new FightRoomFactory(), new RestRoomFactory(), new TreasureRoomFactory(), new VoidRoomFactory()};
 
     public RoomSelection() {
         super();
 
-        RoomFactory roomFactory = new RoomFactory();
-
         // Elements
 
         JButton characterList = new JButton("Character List");
-        characterList.addActionListener(e -> gameWindow.changeContent(new CharacterList(), "Character List"));
+        characterList.addActionListener(e -> new CharacterList());
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -40,13 +39,15 @@ public class RoomSelection extends Content {
 
         // Setting up doors
 
+        int distanceBetweenRooms = 5;
         Padding door1 = new Padding(0, distanceBetweenRooms, 0, distanceBetweenRooms);
         Padding door2 = new Padding(0, distanceBetweenRooms, 0, distanceBetweenRooms);
         Padding door3 = new Padding(0, distanceBetweenRooms, 0, distanceBetweenRooms);
 
-        door1.add(roomFactory.generateDoor(RoomFactory.RoomType.TREASURE), gridBagConstraints);
-        door2.add(roomFactory.generateDoor(RoomFactory.RoomType.FIGHT), gridBagConstraints);
-        door3.add(roomFactory.generateDoor(RoomFactory.RoomType.REST), gridBagConstraints);
+        Random random = new Random();
+        door1.add(rooms[random.nextInt(rooms.length)].generateDoor(), gridBagConstraints);
+        door2.add(rooms[random.nextInt(rooms.length)].generateDoor(), gridBagConstraints);
+        door3.add(rooms[random.nextInt(rooms.length)].generateDoor(), gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;

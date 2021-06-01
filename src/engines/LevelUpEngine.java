@@ -2,7 +2,6 @@ package engines;
 
 import Utilities.Configuration;
 import components.Characteristic;
-import controllers.PlayerController;
 import frames.Rest;
 
 import java.awt.event.ActionEvent;
@@ -67,7 +66,6 @@ public class LevelUpEngine {
         checkDownGradeAvailability();
     }
 
-    // Ок ли иметь много одинаковых функций, потому что я не хочу обращаться к графике, чтобы вытаскивать информацию
     public ActionListener healthLevelUp = e -> {
         tmpHealth += Configuration.playerHealthPerLevel;
         restGui.getHealth().actualizeCurrentValue(tmpHealth);
@@ -125,7 +123,7 @@ public class LevelUpEngine {
                 saveCharacteristics();
             }
             player.setCurrentHealth(player.getHealth());
-            new PlayerController(player).incrementRooms();
+            player.setNumberOfVisitedRooms(player.getNumberOfVisitedRooms() + 1);
             restGui.leaveRoom();
         }
     }

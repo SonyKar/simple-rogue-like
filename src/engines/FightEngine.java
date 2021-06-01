@@ -1,9 +1,8 @@
 package engines;
 
+import Factory.FightFactory;
 import Model.Enemy;
 import Model.FightModel;
-import controllers.EnemyController;
-import controllers.PlayerController;
 import frames.Fight;
 
 import static main.Main.player;
@@ -12,15 +11,11 @@ public class FightEngine extends engines.Fight {
 
     Fight fightGUI;
     FightModel fightModel;
-    PlayerController playerController;
-    EnemyController enemyController;
     FightAI fightAI;
 
-    public FightEngine(Fight fightGUI, FightModel fightModel) {
+    public FightEngine(Fight fightGUI) {
         this.fightGUI = fightGUI;
-        this.fightModel = fightModel;
-        playerController = new PlayerController(player);
-        enemyController = new EnemyController(fightModel.getEnemy());
+        this.fightModel = new FightFactory().generateFight();
         fightAI = new FightAI();
     }
 
@@ -28,8 +23,9 @@ public class FightEngine extends engines.Fight {
         String result;
         Enemy enemy = fightModel.getEnemy();
 
-        //int randomElementNumber = new Random().nextInt(5);
         Element opponentsElement = fightAI.generateMove(4);
+        //int randomElementNumber = new Random().nextInt(5);
+        //Element opponentsElement = Element.values()[randomElementNumber];
 
         String playerElementName = element.toString().charAt(0) + element.toString().toLowerCase().substring(1);
         String opponentsElementName = opponentsElement.toString().charAt(0) + opponentsElement.toString().toLowerCase().substring(1);
@@ -42,14 +38,14 @@ public class FightEngine extends engines.Fight {
         else {
             Element[] weaknesses = rules.get(element);
             if (opponentsElement == weaknesses[0] || opponentsElement == weaknesses[1]) {
-                //playerController.takeDamage(enemy.getDamage());
+                player.setCurrentHealth(player.getCurrentHealth() - enemy.getDamage());
                 fightGUI.actualisePlayer(player.getCurrentHealth(), player.getHealth());
                 fightGUI.actualisePlayerSelection(playerElementName, false);
                 fightGUI.actualiseEnemySelection(opponentsElementName, true);
                 result = "player takes damage " + enemy.getDamage() + "\nNow he has " + player.getCurrentHealth();
             }
             else {
-                //enemyController.takeDamage(player.getDamage());
+                enemy.setCurrentHealth(enemy.getCurrentHealth() - player.getDamage());
                 fightGUI.actualiseEnemy(enemy.getCurrentHealth(), enemy.getHealth());
                 fightGUI.actualisePlayerSelection(playerElementName, true);
                 fightGUI.actualiseEnemySelection(opponentsElementName, false);

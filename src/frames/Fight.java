@@ -1,6 +1,5 @@
 package frames;
 
-import Factory.FightFactory;
 import components.Padding;
 import components.StatusBar;
 import engines.FightEngine;
@@ -19,7 +18,7 @@ public class Fight extends Content {
     public Fight() {
         super();
 
-        fightEngine = new FightEngine(this, new FightFactory().generateFight());
+        fightEngine = new FightEngine(this);
 
         // Elements
         player = new StatusBar(Main.player);

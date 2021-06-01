@@ -7,12 +7,15 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static main.Main.gameWindow;
 import static main.Main.player;
 
-public class CharacterList extends Content {
+public class CharacterList extends JFrame {
     public CharacterList() {
-        super();
+        super("Character List");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(400, 200 ,250, 350);
+        setLayout(new GridLayout(1, 1));
+        setVisible(true);
 
         Padding padding = new Padding(20, 20, 20, 20);
 
@@ -33,9 +36,10 @@ public class CharacterList extends Content {
         JLabel nextLevelCost = new JLabel("Next level costs " + player.getCharacteristicLevel() * Configuration.costPerLevel + " coins");
 
         JButton close = new JButton("Close");
-        close.addActionListener(e -> gameWindow.changeContent(new RoomSelection(), "Select a Room"));
+        close.addActionListener(e -> { setVisible(false); dispose(); });
 
         // Characteristics
+        GridBagConstraints gridBagConstraints = padding.getGridBagConstraints();
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -99,6 +103,6 @@ public class CharacterList extends Content {
 
         padding.add(close, gridBagConstraints);
 
-        add(padding);
+        getContentPane().add(padding);
     }
 }

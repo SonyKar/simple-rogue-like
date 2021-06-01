@@ -9,7 +9,7 @@ public class Main {
     public static GameWindow gameWindow;
 
     public static void main(String[] args) {
-        player = new Player("test", 50, 5, 1, 0);
+        player = new Player("test", 50, 5, 1, 100);
         gameWindow = new GameWindow("Main Menu", new MainMenu());
     }
 }

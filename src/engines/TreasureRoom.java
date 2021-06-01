@@ -1,7 +1,5 @@
 package engines;
 
-import controllers.PlayerController;
-
 import static main.Main.player;
 
 public class TreasureRoom {
@@ -12,8 +10,7 @@ public class TreasureRoom {
     }
 
     public void collectCoins() {
-        PlayerController playerController = new PlayerController(player);
-        playerController.collectCoins(coins);
-        playerController.incrementRooms();
+        player.setCoins(player.getCoins() + coins);
+        player.setNumberOfVisitedRooms(player.getNumberOfVisitedRooms() + 1);
     }
 }
