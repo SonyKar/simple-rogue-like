@@ -148,4 +148,8 @@ public class Fight extends Content {
     public void leaveRoom(int coins) {
         Main.gameWindow.changeContent(new Treasure(coins), "Treasury");
     }
+
+    public void endGame() {
+        Main.gameWindow.changeContent(new MainMenu(), "Main Menu");
+    }
 }

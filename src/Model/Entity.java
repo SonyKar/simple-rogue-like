@@ -6,6 +6,9 @@ public abstract class Entity {
     private int currentHealth;
     private int damage;
 
+    public Entity() {
+    }
+
     public Entity(String name, int health, int damage) {
         this.name = name;
         this.health = health;

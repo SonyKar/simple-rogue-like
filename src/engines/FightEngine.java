@@ -1,10 +1,12 @@
 package engines;
 
+import DAO.playerDB;
 import Factory.FightFactory;
 import Model.Enemy;
 import Model.FightModel;
 import frames.Fight;
 
+import static main.Main.login;
 import static main.Main.player;
 
 public class FightEngine extends engines.Fight {
@@ -61,7 +63,9 @@ public class FightEngine extends engines.Fight {
 
         if (player.getCurrentHealth() <= 0) {
             System.out.println("You Died!");
-            System.exit(1);
+            player.resetCharacter();
+            new playerDB().update(player, login);
+            fightGUI.endGame();
         }
 
         // after round

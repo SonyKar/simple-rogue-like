@@ -1,10 +1,16 @@
 package Model;
 
+import Utilities.Configuration;
+
 public class Player extends Entity {
     int numberOfVisitedRooms;
     int characteristicLevel;
     int luck;
     int coins;
+
+    public Player() {
+        super();
+    }
 
     public Player(String name, int health, int damage, int luck, int coins) {
         super(name, health, damage);
@@ -43,5 +49,15 @@ public class Player extends Entity {
 
     public void setCoins(int coins) {
         this.coins = coins;
+    }
+
+    public void resetCharacter() {
+        numberOfVisitedRooms = 0;
+        characteristicLevel = 1;
+        coins = Configuration.startCoins;
+        setHealth(Configuration.basicHealth);
+        setCurrentHealth(Configuration.basicHealth);
+        setDamage(Configuration.basicDamage);
+        setLuck(Configuration.basicLuck);
     }
 }

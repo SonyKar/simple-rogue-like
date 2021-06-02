@@ -5,6 +5,8 @@ import main.Main;
 import javax.swing.*;
 import java.awt.*;
 
+import static main.Main.gameWindow;
+
 public class MainMenu extends Content {
     public MainMenu() {
         super();
@@ -30,7 +32,7 @@ public class MainMenu extends Content {
 
         JButton startGame = new JButton("Start Game");
         startGame.setFont(new Font(GameWindow.fontName, Font.PLAIN, 18));
-        startGame.addActionListener(e -> Main.gameWindow.changeContent(new RoomSelection(), "Room Selection"));
+        startGame.addActionListener(e -> gameWindow.changeContent(new RoomSelection(), "Room Selection"));
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
